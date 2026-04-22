@@ -9,7 +9,6 @@ class Service {
     this.domain = "";
     if (import.meta.env.VITE_BZENV === "development") {
       this.domain = import.meta.env.VITE_DEV_PROXY;
-      console.log("DOMAIN:", this.domain);
     }
   }
 
