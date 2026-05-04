@@ -72,7 +72,7 @@ export const UrlInput = (props) => {
                     w={400}
                     defaultValue={dayjs().toString()}
                     rightSection={<IconCalendar size={16} />}
-                    label="Date input"
+                    label="Expiry Date"
                     placeholder="Date input"
                     onChange={(date) => {
                         setInput({ ...input, expiresAt: date });
