@@ -1,3 +1,4 @@
+import { log } from "console";
 import { ShortURL } from "../models/shorturl.model.js";
 import { nanoid } from 'nanoid';
 
@@ -38,5 +39,25 @@ export const createShortCode = async (req, res) => {
     } catch (error) {
         console.log("Internal Server Error! ", error);
         return res.status(500).json({ message: "Internal Server Error!" });
+    }
+}
+
+export const getOriginalURL = async (req, res) => {
+    try {
+        const { shortCode } = req.params;
+        const found = await ShortURL.findOne({ shortCode });
+        if (!found) {
+            console.log("Short code not found!!");
+            return res.status(400).json({ status: "BAD_REQUEST", message: "Short code not found!!" })
+        }
+        console.log(found);
+        if(Date.now() > found?.expiresAt) {
+            console.log("This URL has expired");
+            return res.status(410).json({message : "This URL has expired"});
+        }
+        return res.redirect(found.originalUrl);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error"});
     }
 }
