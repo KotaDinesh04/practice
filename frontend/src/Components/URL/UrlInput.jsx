@@ -64,6 +64,18 @@ export const UrlInput = (props) => {
                         console.log(input);
                     }}
                 />
+                <TextInput
+                    w={400}
+                    label="Custom Short Code"
+                    placeholder="Enter a custom short code"
+                    styles={{
+                        label: { fontWeight: 700 }
+                    }}
+                    onChange={(e) => {
+                        setInput({ ...input, originalUrl: e.target.customCode });
+                        console.log(input);
+                    }}
+                />
                 <DateInput
                     clearable
                     styles={{
