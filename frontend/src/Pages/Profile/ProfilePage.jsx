@@ -9,7 +9,7 @@ export const ProfilePage = () => {
         try {
             const data = await service.get('user/me');
             console.log(data);
-            setUserData(data);
+            setUserData(data?.user);
         } catch (error) {
             console.log(error);
         }
