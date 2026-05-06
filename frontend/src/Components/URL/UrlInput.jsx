@@ -72,7 +72,7 @@ export const UrlInput = (props) => {
                         label: { fontWeight: 700 }
                     }}
                     onChange={(e) => {
-                        setInput({ ...input, originalUrl: e.target.customCode });
+                        setInput({ ...input, customCode: e.target.value });
                         console.log(input);
                     }}
                 />

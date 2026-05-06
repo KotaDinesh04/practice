@@ -51,13 +51,28 @@ export const getOriginalURL = async (req, res) => {
             return res.status(400).json({ status: "BAD_REQUEST", message: "Short code not found!!" })
         }
         console.log(found);
-        if(Date.now() > found?.expiresAt) {
+        if (Date.now() > found?.expiresAt) {
             console.log("This URL has expired");
-            return res.status(410).json({message : "This URL has expired"});
+            return res.status(410).json({ message: "This URL has expired" });
         }
         return res.redirect(found.originalUrl);
     } catch (error) {
         console.log(error);
-        return res.status(500).json({message: "Internal server error"});
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+export const fetchAllUrls = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const urls = await ShortURL.find({ userId });
+        if (!urls) {
+            return res.status(404).json({ message: "No URL'S found" });
+        }
+        // console.log(urls);
+        return res.status(200).json(urls);
+    } catch (error) {
+        console.log("Internal Server Error!", error);
+        return res.status(500).json({ message: "Internal Server Error!" });
     }
 }
